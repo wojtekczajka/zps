@@ -34,6 +34,18 @@ def generate_image_poster(img_file: str):
             <img id="posterImage" src="{img_file}" controls>
     """
 
+def generate_playlist_table():
+    return f"""
+        <h2>Playlist Table</h2>
+        <table id="playlist_table">
+            <tr>
+                <th>No.</th>
+                <th>URL</th>
+                <th>Type</th>
+            </tr>
+        </table>
+    """
+
 def generate_html_response(video_file: str, audio_file: str, img_file: str):
     return f"""
         <html>
@@ -45,6 +57,7 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                 {generate_video_player(video_file)}
                 {generate_audio_player(audio_file)}
                 {generate_image_poster(img_file)}
+                {generate_playlist_table()}
             </body>
         </html>
     """
