@@ -14,6 +14,7 @@ def generate_video_player(video_file: str):
         <video id="videoPlayer" src="{video_file}" controls></video>
         <br>
         <button id="videoCancel" onclick="document.getElementById('videoPlayer').src='cancel.mp4'">Cancel Video</button>
+        <button id="videoAdd" onclick="addToPlaylist('video', '{video_file}')">Add video</button>
     """
 
 def generate_audio_player(audio_file: str):
@@ -24,6 +25,7 @@ def generate_audio_player(audio_file: str):
         <audio id="audioPlayer" src="{audio_file}" controls></audio>
         <br>
         <button id="audioCancel" onclick="document.getElementById('audioPlayer').src='cancel.mp3'">Cancel Audio</button>
+        <button id="audioAdd" onclick="addToPlaylist('audio', '{audio_file}')">Add audio</button>
     """
 
 def generate_image_poster(img_file: str):
