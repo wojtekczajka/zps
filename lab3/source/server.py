@@ -34,6 +34,7 @@ def generate_image_poster(img_file: str):
     return f"""
             <h2>Image Poster</h2>
             <img id="posterImage" src="{img_file}" controls>
+            <br>
             <button id="imgAdd" onclick="addToPlaylist('img', '{img_file}')">Add img</button>
     """
 
