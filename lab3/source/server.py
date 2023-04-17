@@ -34,6 +34,7 @@ def generate_image_poster(img_file: str):
     return f"""
             <h2>Image Poster</h2>
             <img id="posterImage" src="{img_file}" controls>
+            <button id="imgAdd" onclick="addToPlaylist('img', '{img_file}')">Add img</button>
     """
 
 def generate_playlist_table():
@@ -60,6 +61,20 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                 {generate_audio_player(audio_file)}
                 {generate_image_poster(img_file)}
                 {generate_playlist_table()}
+                <script>
+                    let rowCount = 0;
+                    function addToPlaylist(type, url) {{
+                        rowCount++;
+                        let table = document.getElementById("playlist_table");
+                        let row = table.insertRow();
+                        let noCell = row.insertCell(0);
+                        let urlCell = row.insertCell(1);
+                        let typeCell = row.insertCell(2);
+                        noCell.innerHTML = rowCount;
+                        urlCell.innerHTML = url;
+                        typeCell.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
+                    }}
+                </script>
             </body>
         </html>
     """
