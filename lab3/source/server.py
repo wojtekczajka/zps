@@ -35,6 +35,7 @@ def generate_image_poster(img_file: str):
             <h2>Image Poster</h2>
             <img id="posterImage" src="{img_file}" controls>
             <br>
+            <button id="imgCancel" onclick="document.getElementById('posterImage').src='cancel.jpg'">Cancel Image</button>
             <button id="imgAdd" onclick="addToPlaylist('img', '{img_file}')">Add img</button>
     """
 
