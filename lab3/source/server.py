@@ -12,6 +12,7 @@ def generate_video_player(video_file: str):
     return f"""
         <h2>Video player</h2>
         <video id="videoPlayer" src="{video_file}" controls></video>
+        <br>
         <button id="videoCancel" onclick="document.getElementById('videoPlayer').src='cancel.mp4'">Cancel Video</button>
     """
 
@@ -21,6 +22,7 @@ def generate_audio_player(audio_file: str):
     return f"""
         <h2>Audio player</h2>
         <audio id="audioPlayer" src="{audio_file}" controls></audio>
+        <br>
         <button id="audioCancel" onclick="document.getElementById('audioPlayer').src='cancel.mp3'">Cancel Audio</button>
     """
 
