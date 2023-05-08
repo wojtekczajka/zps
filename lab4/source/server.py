@@ -47,6 +47,7 @@ def generate_playlist_table():
                 <th>No.</th>
                 <th>URL</th>
                 <th>Type</th>
+                <th>Action</th> 
             </tr>
         </table>
     """
@@ -72,9 +73,11 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         let noCell = row.insertCell(0);
                         let urlCell = row.insertCell(1);
                         let typeCell = row.insertCell(2);
+                        let actionCell = row.insertCell(3);
                         noCell.innerHTML = rowCount;
                         urlCell.innerHTML = url;
                         typeCell.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
+                        actionCell.innerHTML = '<button>Delete</button>';
                     }}
                 </script>
             </body>
