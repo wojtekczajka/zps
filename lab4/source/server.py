@@ -77,7 +77,7 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         noCell.innerHTML = rowCount;
                         urlCell.innerHTML = url;
                         typeCell.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
-                        actionCell.innerHTML = '<button onclick="removeRow(this)">Delete</button>';
+                        actionCell.innerHTML = '<button class="removeRowButton" onclick="removeRow(this)">Delete</button>';
                     }}
 
                     function removeRow(button) {{
