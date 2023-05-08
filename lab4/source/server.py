@@ -78,16 +78,28 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         urlCell.innerHTML = url;
                         typeCell.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
                         actionCell.innerHTML = '<button class="removeRowButton" onclick="removeRow(this)">Delete</button>';
+                        updateRowNumbers(table);
                     }}
 
                     function removeRow(button) {{
                         let row = button.parentNode.parentNode;
                         row.parentNode.removeChild(row);
+                        let table = document.getElementById("playlist_table");
+                        updateRowNumbers(table);
+                    }}
+
+                    function updateRowNumbers(table) {{
+                        let rows = table.getElementsByTagName("tr");
+                        for (let i = 1; i < rows.length; i++) {{
+                            let numberCell = rows[i].getElementsByTagName("td")[0];
+                            numberCell.innerHTML = i;
+                        }}
                     }}
                 </script>
             </body>
         </html>
     """
+
 
 @app.get("/")
 async def get_players(videoFile: Union[str, None] = None, audioFile: Union[str, None] = None, imgFile: Union[str, None] = None):
