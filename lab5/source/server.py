@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+
 def generate_video_player(video_file: str):
     if video_file is None:
         return ""
@@ -16,6 +17,7 @@ def generate_video_player(video_file: str):
         <button id="videoCancel" onclick="document.getElementById('videoPlayer').src='cancel.mp4'">Cancel Video</button>
         <button id="videoAdd" onclick="addToPlaylist('video', '{video_file}')">Add video</button>
     """
+
 
 def generate_audio_player(audio_file: str):
     if audio_file is None:
@@ -28,16 +30,18 @@ def generate_audio_player(audio_file: str):
         <button id="audioAdd" onclick="addToPlaylist('audio', '{audio_file}')">Add audio</button>
     """
 
+
 def generate_image_poster(img_file: str):
     if img_file is None:
         return ""
     return f"""
-            <h2>Image Poster</h2>
-            <img id="posterImage" src="{img_file}" controls>
-            <br>
-            <button id="imgCancel" onclick="document.getElementById('posterImage').src='cancel.jpg'">Cancel Image</button>
-            <button id="imgAdd" onclick="addToPlaylist('img', '{img_file}')">Add img</button>
+        <h2>Image Poster</h2>
+        <img id="posterImage" src="{img_file}" controls>
+        <br>
+        <button id="imgCancel" onclick="document.getElementById('posterImage').src='cancel.jpg'">Cancel Image</button>
+        <button id="imgAdd" onclick="addToPlaylist('img', '{img_file}')">Add img</button>
     """
+
 
 def generate_playlist_table():
     return f"""
@@ -51,6 +55,7 @@ def generate_playlist_table():
             </tr>
         </table>
     """
+
 
 def generate_html_response(video_file: str, audio_file: str, img_file: str):
     return f"""
@@ -66,6 +71,7 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                 {generate_playlist_table()}
                 <script>
                     let rowCount = 0;
+
                     function addToPlaylist(type, url) {{
                         rowCount++;
                         let table = document.getElementById("playlist_table");
@@ -78,8 +84,8 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         urlCell.innerHTML = url;
                         typeCell.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
                         actionCell.innerHTML = '<button class="removeRowButton" onclick="removeRow(this)">Delete</button>' +
-                                               '<button class="moveRowUpButton" onclick="">Up</button>' +
-                                               '<button class="moveRowDownButton" onclick="">Dow</button>';
+                                                '<button class="moveRowUpButton" onclick="moveRowUp(this)">Up</button>' +
+                                                '<button class="moveRowDownButton" onclick="moveRowDown(this)">Down</button>';
                         updateRowNumbers(table);
                     }}
 
@@ -87,6 +93,32 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         let row = button.parentNode.parentNode;
                         row.parentNode.removeChild(row);
                         let table = document.getElementById("playlist_table");
+                        updateRowNumbers(table);
+                    }}
+
+                    function moveRowUp(button) {{
+                        let row = button.parentNode.parentNode;
+                        let table = row.parentNode;
+                        if (row.rowIndex === 1) {{
+                            // Move the first row to the end
+                            table.appendChild(row);
+                        }} else {{
+                            // Swap the row with the previous row
+                            table.insertBefore(row, row.previousSibling);
+                        }}
+                        updateRowNumbers(table);
+                    }}
+
+                    function moveRowDown(button) {{
+                        let row = button.parentNode.parentNode;
+                        let table = row.parentNode;
+                        if (row.rowIndex === table.rows.length - 1) {{
+                            // Move the last row to the beginning
+                            table.insertBefore(row, table.firstChild.nextSibling);
+                        }} else {{
+                            // Swap the row with the next row
+                            table.insertBefore(row.nextSibling, row);
+                        }}
                         updateRowNumbers(table);
                     }}
 
@@ -104,7 +136,8 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
 
 
 @app.get("/")
-async def get_players(videoFile: Union[str, None] = None, audioFile: Union[str, None] = None, imgFile: Union[str, None] = None):
+async def get_players(videoFile: Union[str, None] = None, audioFile: Union[str, None] = None,
+                      imgFile: Union[str, None] = None):
     return HTMLResponse(content=generate_html_response(videoFile, audioFile, imgFile))
 
 # sample video https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4
