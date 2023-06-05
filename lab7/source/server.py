@@ -14,6 +14,9 @@ def generate_video_player(video_file: str):
         <h2>Video player</h2>
         <video id="videoPlayer" src="{video_file}" controls></video>
         <br>
+        <button id="videoPlay">Play Video</button>
+        <button id="videoPause">Pause Video</button>
+        <br>
         <button id="videoCancel" onclick="document.getElementById('videoPlayer').src='cancel.mp4'">Cancel Video</button>
         <button id="videoAdd" onclick="addToPlaylist('video', '{video_file}')">Add video</button>
     """
@@ -25,6 +28,9 @@ def generate_audio_player(audio_file: str):
     return f"""
         <h2>Audio player</h2>
         <audio id="audioPlayer" src="{audio_file}" controls></audio>
+        <br>
+        <button id="audioPlay">Play Audio</button>
+        <button id="audioPause">Pause Audio</button>
         <br>
         <button id="audioCancel" onclick="document.getElementById('audioPlayer').src='cancel.mp3'">Cancel Audio</button>
         <button id="audioAdd" onclick="addToPlaylist('audio', '{audio_file}')">Add audio</button>
@@ -129,6 +135,7 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                             numberCell.innerHTML = i;
                         }}
                     }}
+
                 </script>
             </body>
         </html>
@@ -139,6 +146,7 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
 async def get_players(videoFile: Union[str, None] = None, audioFile: Union[str, None] = None,
                       imgFile: Union[str, None] = None):
     return HTMLResponse(content=generate_html_response(videoFile, audioFile, imgFile))
+
 
 # sample video https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4
 # sample audio https://www2.cs.uic.edu/~i101/SoundFiles/StarWars3.wav
