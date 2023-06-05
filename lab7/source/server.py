@@ -14,8 +14,8 @@ def generate_video_player(video_file: str):
         <h2>Video player</h2>
         <video id="videoPlayer" src="{video_file}" controls></video>
         <br>
-        <button id="videoPlay">Play Video</button>
-        <button id="videoPause">Pause Video</button>
+        <button id="videoPlay" onclick="playVideo()">Play Video</button>
+        <button id="videoPause" onclick="pauseVideo()">Pause Video</button>
         <br>
         <button id="videoCancel" onclick="document.getElementById('videoPlayer').src='cancel.mp4'">Cancel Video</button>
         <button id="videoAdd" onclick="addToPlaylist('video', '{video_file}')">Add video</button>
@@ -136,6 +136,15 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                         }}
                     }}
 
+                    function playVideo() {{
+                        let videoPlayer = document.getElementById("videoPlayer");
+                        videoPlayer.play();
+                    }}
+
+                    function pauseVideo() {{
+                        let videoPlayer = document.getElementById("videoPlayer");
+                        videoPlayer.pause();
+                    }}
                 </script>
             </body>
         </html>
