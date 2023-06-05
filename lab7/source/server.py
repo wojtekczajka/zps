@@ -29,8 +29,8 @@ def generate_audio_player(audio_file: str):
         <h2>Audio player</h2>
         <audio id="audioPlayer" src="{audio_file}" controls></audio>
         <br>
-        <button id="audioPlay">Play Audio</button>
-        <button id="audioPause">Pause Audio</button>
+        <button id="audioPlay" onclick="playAudio()">Play Audio</button>
+        <button id="audioPause" onclick="pauseAudio()">Pause Audio</button>
         <br>
         <button id="audioCancel" onclick="document.getElementById('audioPlayer').src='cancel.mp3'">Cancel Audio</button>
         <button id="audioAdd" onclick="addToPlaylist('audio', '{audio_file}')">Add audio</button>
@@ -144,6 +144,16 @@ def generate_html_response(video_file: str, audio_file: str, img_file: str):
                     function pauseVideo() {{
                         let videoPlayer = document.getElementById("videoPlayer");
                         videoPlayer.pause();
+                    }}
+
+                    function playAudio() {{
+                        let audioPlayer = document.getElementById("audioPlayer");
+                        audioPlayer.play();
+                    }}
+
+                    function pauseAudio() {{
+                        let audioPlayer = document.getElementById("audioPlayer");
+                        audioPlayer.pause();
                     }}
                 </script>
             </body>
